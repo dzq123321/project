@@ -2,6 +2,7 @@
 #include "sys.h"
 #include "DataManager.h"
 #include "./sqlite3_lib/sqlite3.h"
+#include "ScanManager.h"
 #pragma comment (lib,"./sqlite3_lib/sqlite3.lib")
 /*
 1、mysql和sqlite都是基于文件类型的关系型数据库
@@ -45,30 +46,44 @@ void Test_Sqlite()
 		cout << endl;
 	}
 }
+//void Test_DataManager()
+//{
+//	SqliteManager sm;
+//	sm.Open("sm.db");
+//	string sql="create table you_tb(id int, name varchar(20), path varchar(100))";
+//	sm.ExecutedSql(sql);
+//	 sql = "select * from you_tb";
+//	int row = 0;
+//	int col = 0;
+//	char **result = 0;
+//	sm.GetResultTable(sql, row, col, result);
+//	for (int i = 0; i <= row; ++i)
+//	{
+//		for (int j = 0; j < col; ++j)
+//		{
+//			printf("%-5s", *(result + (i*col) + j));
+//		}
+//		cout << endl;
+//	}
+//}
 void Test_DataManager()
 {
-	SqliteManager sm;
-	sm.Open("sm.db");
-	string sql="create table you_tb(id int, name varchar(20), path varchar(100))";
-	sm.ExecutedSql(sql);
-	 sql = "select * from you_tb";
-	int row = 0;
-	int col = 0;
-	char **result = 0;
-	sm.GetResultTable(sql, row, col, result);
-	for (int i = 0; i <= row; ++i)
-	{
-		for (int j = 0; j < col; ++j)
-		{
-			printf("%-5s", *(result + (i*col) + j));
-		}
-		cout << endl;
-	}
+	DataManager dm;
+	string path = "c:\\";
+	string doc = "stl.paf";
+	dm.InsertDoc(path, doc);
+}
+void Test_ScanManager()
+{
+	const string path = "E:\\duzhiqiang\\比特51c语言\\github";
+	ScanManager sm;
+	sm.ScanDirectory(path);
 }
 int main(int argc, char *argv[])
 {
 	//Test_Sqlite();
-	Test_DataManager();
+	//Test_DataManager();
+	Test_ScanManager();
 	return 0;
 }
 /*
@@ -139,8 +154,8 @@ void Test_DirectionList()
 }
 int main(int argc, char* argv[])
 {
-	Test_sqlite();
-	//Test_DirectionList();
+	//Test_sqlite();
+	Test_DirectionList();
 	return 0;
 }
 */

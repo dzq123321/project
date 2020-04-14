@@ -76,6 +76,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -97,6 +98,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -121,11 +123,13 @@
   <ItemGroup>
     <ClInclude Include="common.h" />
     <ClInclude Include="DataManager.h" />
+    <ClInclude Include="ScanManager.h" />
     <ClInclude Include="sqlite3.h" />
     <ClInclude Include="sys.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DataManager.cpp" />
+    <ClCompile Include="ScanManager.cpp" />
     <ClCompile Include="sys.cpp" />
     <ClCompile Include="DocFsatsearchTool.cpp" />
   </ItemGroup>

@@ -1,2 +1,6 @@
 ﻿  DocFsatsearchTool.cpp
+  ScanManager.cpp
+  sys.cpp
+  正在生成代码...
+sqlite3.lib(sqlite3.obj) : warning LNK4099: 未找到 PDB“vc120.pdb”(使用“sqlite3.lib(sqlite3.obj)”或在“E:\duzhiqiang\比特51c语言\github\project\project_documentsearch\Debug\vc120.pdb”中寻找)；正在链接对象，如同没有调试信息一样
   project_documentsearch.vcxproj -> E:\duzhiqiang\比特51c语言\github\project\project_documentsearch\Debug\project_documentsearch.exe

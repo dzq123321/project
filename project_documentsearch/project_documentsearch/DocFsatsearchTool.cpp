@@ -3,6 +3,7 @@
 #include "DataManager.h"
 #include "./sqlite3_lib/sqlite3.h"
 #include "ScanManager.h"
+#include "Sysframe.h"
 #pragma comment (lib,"./sqlite3_lib/sqlite3.lib")
 /*
 1、mysql和sqlite都是基于文件类型的关系型数据库
@@ -13,6 +14,9 @@
 可以加入/d   cd /dE:\duzhiqiang\比特51c语言\github 
 原来，要跳转到不同分区的时候，需要添加强制跳转参数 /d。
 但是，如果进入的是当前目录的子目录，则可以不使用 /d 参数。这一点是很容易被大家忽略的。
+
+
+1、目前存在bug是，本地文件删除了目录及目录里的文件。那么当数据库中只删除了目录而没有删除文件，那么这个目录的文件会一直都在
 */
 //int sqlite3_exec(
 //  sqlite3*,                                  /* An open database */
@@ -66,6 +70,7 @@ void Test_Sqlite()
 //		cout << endl;
 //	}
 //}
+/*
 void Test_DataManager()
 {
 	DataManager dm;
@@ -75,15 +80,41 @@ void Test_DataManager()
 }
 void Test_ScanManager()
 {
-	const string path = "E:\\duzhiqiang\\比特51c语言\\github";
+	const string path = "F:\\ccc";
 	ScanManager sm;
 	sm.ScanDirectory(path);
 }
-int main(int argc, char *argv[])
+*/
+void Test_Search()
+{
+	const string path = "F:\\ccc";
+	 ScanManager::CreateInstance(path).ScanDirectory(path);
+	//sm.ScanDirectory(path);
+	DataManager &dm= DataManager::GetInstance();
+	string key;
+	vector<pair<string, string>> doc_path;
+	while (1)
+	{
+		cout << "请输入要搜索的关键字:>";
+		cin >> key;
+		dm.Search(key, doc_path);
+		printf("%-15s%-50s\n", "名称","路径");
+		for (const auto &e : doc_path)
+			printf("%-15s%-50s\n", e.first.c_str(), e.second.c_str());
+	}
+}
+
+void Test_Frame()
+{
+	char* title= "文件快速搜索";
+	DrawFrame(title);
+}
+int main()
 {
 	//Test_Sqlite();
 	//Test_DataManager();
-	Test_ScanManager();
+	Test_Frame();
+	//Test_Search();
 	return 0;
 }
 /*

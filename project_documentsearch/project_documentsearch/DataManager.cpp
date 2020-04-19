@@ -76,6 +76,12 @@ void SqliteManager::GetResultTable(const string &sql, int &row, int &col, char *
 }
 
 
+
+DataManager& DataManager::GetInstance()
+{
+	static DataManager inst;
+	return inst;
+}
 DataManager::DataManager()
 {
 	m_dbmgr.Open(DOC_DB);//创建数据库
@@ -117,4 +123,22 @@ void DataManager::DeleteDoc(const string &path, const string &doc)
 	char sql[SQL_BUFFER_SIZE] = { 0 };
 	sprintf(sql, "delete from %s where doc_name='%s' and doc_path='%s'", DOC_TABLE, doc.c_str(), path.c_str());
 	m_dbmgr.ExecutedSql(sql);
+	//////////////////删除目录下的文件
+	string doc_path = path;
+	doc_path += "\\";
+	doc_path += doc;
+	memset(sql, 0, SQL_BUFFER_SIZE);
+	sprintf(sql, "delete from %s where doc_path like '%s%%'", DOC_TABLE, doc_path.c_str());
+	m_dbmgr.ExecutedSql(sql);
+}
+void  DataManager::Search(const string &key, vector<pair<string, string>> &doc_path)
+{
+	char sql[SQL_BUFFER_SIZE] = { 0 };
+	sprintf(sql, "select doc_name,doc_path from %s where doc_name like '%%%s%%'", DOC_TABLE, key.c_str());
+	int row = 0, col = 0;
+	char **ppRet = nullptr;
+	m_dbmgr.GetResultTable(sql, row, col, ppRet);
+	doc_path.clear();
+	for (int i = 1; i <= row; ++i)
+		doc_path.push_back(make_pair(ppRet[i*col], ppRet[i*col + 1]));
 }

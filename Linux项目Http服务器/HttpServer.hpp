@@ -30,7 +30,8 @@ class HttpServer{
                 if(sock >= 0){
                     LOG(Normal, "get a new linking!");
                     pthread_t tid;
-                    pthread_create(&tid, nullptr, Entry::HanderRequest, (void*)sock); //need fix
+                    int *p = new int(sock);
+                    pthread_create(&tid, nullptr, Entry::HandlerRequest, (void*)p); //need fix
                     pthread_detach(tid);
                 }
             }
